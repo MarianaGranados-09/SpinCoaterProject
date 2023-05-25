@@ -17,7 +17,10 @@
 
 int8 i=0, j=0, k=0;
 char number;
-char rpm[8] = {'0'};
+char rpm[8];
+char crpm = '0';
+char drpm = '0';
+char urpm = '0';
 
 void initialMessage();
 void rpm_and_time_display();
@@ -33,9 +36,11 @@ Void Main()
    SSD1306_ClearDisplay();    //clear oled screen
    SSD1306_Display();
    initialMessage();  //initial screen
+   delay_ms(600);
+   rpm_and_time_display();
    while(True)
    {
-      for(i=0; i<8; i++)
+      for(i=0; i<5; i++)
       {
          number = fgetc(BTH);
          delay_us(10);
@@ -47,15 +52,17 @@ Void Main()
       }
       
       Imprimir:
+      crpm = rpm[0];
+      drpm = rpm[1];
+      urpm = rpm[2];
       delay_us(10);
-      fprintf(TTL, "Los RPM son: \r\n");
-      for(j=0;j<8;j++)
-      {
-         fprintf(TTL,"%c", rpm[j]);
-      }
-      
+      fprintf(TTL,"Los digitos del rpm son: ");
+      fprintf(TTL,"%c", crpm);
+      fprintf(TTL,"%c", drpm);
+      fprintf(TTL,"%c", urpm);
       rpm_and_time_display(); //display of rpm speed and time
       delay_ms(1500);
+      limpiar_palabra();
       output_low(pin_a1);
    
    }
@@ -75,9 +82,9 @@ void initialMessage()
 void rpm_and_time_display()
 {
    SSD1306_DrawText(14,1,"RPM: ", 1);
-   SSD1306_DrawChar(35,22, rpm[0] ,1);
-   SSD1306_DrawChar(36,22, rpm[1] ,1);
-   SSD1306_DrawChar(37,22, rpm[3] ,1);
+   SSD1306_DrawChar(35,22, crpm ,1);
+   SSD1306_DrawChar(40,22, drpm ,1);
+   SSD1306_DrawChar(45,22, urpm ,1);
    SSD1306_Display();
 }
 

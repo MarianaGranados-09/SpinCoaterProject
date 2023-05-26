@@ -103,12 +103,12 @@ void initialMessage()
 
 void rpm_and_time_display()
 {
-   SSD1306_DrawText(14,1,"RPM: ", 1);
+   SSD1306_DrawText(10,1,"RPM: ", 1);
    
-   SSD1306_DrawChar(35,22, mrpm ,1);
-   SSD1306_DrawChar(40,22, crpm ,1);
-   SSD1306_DrawChar(45,22, drpm ,1);
-   SSD1306_DrawChar(50,22, urpm ,1);
+   SSD1306_DrawChar(35,1, mrpm ,1);
+   SSD1306_DrawChar(45,1, crpm ,1);
+   SSD1306_DrawChar(50,1, drpm ,1);
+   SSD1306_DrawChar(55,1, urpm ,1);
    SSD1306_Display();
 }
 

@@ -18,9 +18,10 @@
 int8 i=0, j=0, k=0;
 char number;
 char rpm[8];
-char crpm = '0';
-char drpm = '0';
-char urpm = '0';
+char mrpm = ' ';
+char crpm = ' ';
+char drpm = ' ';
+char urpm = ' ';
 
 void initialMessage();
 void rpm_and_time_display();
@@ -52,11 +53,32 @@ Void Main()
       }
       
       Imprimir:
-      crpm = rpm[0];
-      drpm = rpm[1];
-      urpm = rpm[2];
+      if(i == 4)
+      {
+         mrpm = rpm[0];
+         crpm = rpm[1];
+         drpm = rpm[2];
+         urpm = rpm[3]; 
+      }
+      else if(i == 3)
+      {
+         crpm = rpm[0];
+         drpm = rpm[1];
+         urpm = rpm[2];
+      }
+      else if(i == 2)
+      {
+         drpm = rpm[0];
+         urpm = rpm[1];
+      }
+      else
+      {
+         urpm = rpm[0];
+      }
+      
       delay_us(10);
       fprintf(TTL,"Los digitos del rpm son: ");
+      fprintf(TTL,"%c", mrpm);
       fprintf(TTL,"%c", crpm);
       fprintf(TTL,"%c", drpm);
       fprintf(TTL,"%c", urpm);
@@ -82,9 +104,11 @@ void initialMessage()
 void rpm_and_time_display()
 {
    SSD1306_DrawText(14,1,"RPM: ", 1);
-   SSD1306_DrawChar(35,22, crpm ,1);
-   SSD1306_DrawChar(40,22, drpm ,1);
-   SSD1306_DrawChar(45,22, urpm ,1);
+   
+   SSD1306_DrawChar(35,22, mrpm ,1);
+   SSD1306_DrawChar(40,22, crpm ,1);
+   SSD1306_DrawChar(45,22, drpm ,1);
+   SSD1306_DrawChar(50,22, urpm ,1);
    SSD1306_Display();
 }
 
@@ -94,4 +118,9 @@ void limpiar_palabra()
       {
          rpm[k] = 0;
       }
+      
+      mrpm = ' ';
+      crpm = ' ';
+      drpm = ' ';
+      urpm = ' ';
 }

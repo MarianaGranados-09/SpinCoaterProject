@@ -1,5 +1,7 @@
 #Include <18F4550.h>
 #Device PASS_STRINGS = IN_RAM
+#include <stdio.h>
+#include <stdlib.h>
 #fuses INTRC, NOPROTECT, NOWDT, CPUDIV1, PLL4
 #use I2C(MASTER, SDA = PIN_B2, SCL = PIN_B1, FAST = 400000, STREAM = SSD1306_STREAM)
 #use delay(Clock=8M)
@@ -28,7 +30,7 @@ char timeChar[10];
 int1 count = 0;
 int time = 0;
 
-int16 dec, un;
+//int16 dec, un;
 
 void initialMessage();
 void rpm_display();
@@ -44,7 +46,8 @@ void TIMER1_isr(void)
    {
       output_toggle(pin_a1);
       time++;
-      fprintf(TTL, "Time: %d\n", time);
+      itoa(time, timeChar, timeChar);
+      fprintf(TTL, "Time: %s\n", timeChar);
    }
    set_timer1(3036); //recharge timer1
    count++;

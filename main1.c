@@ -44,7 +44,7 @@ void TIMER1_isr(void)
    {
       output_toggle(pin_a1);
       time++;
-       fprintf(TTL, "Time: %d", time);
+      fprintf(TTL, "Time: %d\n", time);
    }
    set_timer1(3036); //recharge timer1
    count++;
@@ -62,7 +62,7 @@ void main()
    delay_ms(600);
    rpm_display();
    
-   setup_timer_1(T1_INTERNAL | T1_DIV_BY_4);
+   setup_timer_1(T1_INTERNAL | T1_DIV_BY_8);
    set_timer1(3036);
    enable_interrupts(INT_TIMER1);
    enable_interrupts(int_ext);

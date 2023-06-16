@@ -1,6 +1,6 @@
 #Include <18F4550.h>
 #Device PASS_STRINGS = IN_RAM
-#fuses INTRC, NOPROTECT, NOWDT, NOLVP, CPUDIV1, PLL4
+#fuses INTRC, NOPROTECT, NOWDT, CPUDIV1, PLL4
 #use I2C(MASTER, SDA = PIN_B0, SCL = PIN_B1, FAST = 400000, STREAM = SSD1306_STREAM)
 #use delay(Clock=8M)
 
@@ -9,16 +9,13 @@
 
 #BYTE TRISD = 0xF95
 #BYTE PORTD = 0xF83
-#BYTE PORTB=0xF81
-#BYTE TRISB=0xF93
 
 #define SSD1306_I2C_ADDRESS 0x78    //memory direction of oled display
 #include <SSD1306_OLED.c>           //library to manage the oled
 #include <string.h>
 #include <stdio.h>
 
-//OLED VAR
-int8 i=0, j=0, k=0;
+int8 i=0, k=0;
 char number;
 char rpm[8];
 char mrpm = ' ';
@@ -26,10 +23,9 @@ char crpm = ' ';
 char drpm = ' ';
 char urpm = ' ';
 
-//TIMER VAR
-int16 const display[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
 int1 count = 0;
 int time = 0;
+
 int16 dec, un;
 
 void initialMessage();
@@ -52,16 +48,9 @@ void TIMER1_isr(void)
    count++;
 }
 
+
 void main()
 {
-   
-   //TRISD = 0x00;
-   //TRISB = 0x00;
-   setup_timer_1(T1_INTERNAL | T1_DIV_BY_4);
-   set_timer1(3036);
-   enable_interrupts(INT_TIMER1);
-   enable_interrupts(global);
-   
    fprintf(TTL, "READY TO GO\r\n");
    limpiar_palabra();
    SSD1306_Begin(SSD1306_SWITCHCAPVCC, SSD1306_I2C_ADDRESS);   //initializing the oled
@@ -70,6 +59,12 @@ void main()
    initialMessage();  //initial screen
    delay_ms(600);
    rpm_and_time_display();
+   
+   setup_timer_1(T1_INTERNAL | T1_DIV_BY_4);
+   set_timer1(3036);
+   enable_interrupts(INT_TIMER1);
+   enable_interrupts(global);
+   
    while(True)
    {
       for(i=0; i<5; i++)

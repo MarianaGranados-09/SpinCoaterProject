@@ -23,6 +23,8 @@ char crpm = ' ';
 char drpm = ' ';
 char urpm = ' ';
 
+char timeChar[10];
+
 int1 count = 0;
 int time = 0;
 
@@ -41,6 +43,7 @@ void TIMER1_isr(void)
    {
       output_toggle(pin_a1);
       time++;
+      sprintf(timeChar, "%d", time);
       dec = time / 10;
       un = time % 10;  
    }
@@ -103,13 +106,8 @@ void main()
       }
       
       delay_us(10);
-      fprintf(TTL,"Los digitos del rpm son: ");
-      fprintf(TTL,"%c", mrpm);
-      fprintf(TTL,"%c", crpm);
-      fprintf(TTL,"%c", drpm);
-      fprintf(TTL,"%c", urpm);
       rpm_and_time_display(); //display of rpm speed and time
-      delay_ms(1500);
+      delay_ms(1000);
       limpiar_palabra();
       output_low(pin_a2);
    
@@ -129,13 +127,18 @@ void initialMessage()
 
 void rpm_and_time_display()
 {
+ 
    SSD1306_DrawText(10,1,"RPM: ", 1);
-   
    SSD1306_DrawChar(35,1, mrpm ,1);
    SSD1306_DrawChar(45,1, crpm ,1);
    SSD1306_DrawChar(50,1, drpm ,1);
    SSD1306_DrawChar(55,1, urpm ,1);
+
+   SSD1306_DrawText(10,15,"TIME: ", 1);
+   SSD1306_DrawChar(40,15, timeChar ,1);
+
    SSD1306_Display();
+   
 }
 
 void limpiar_palabra()

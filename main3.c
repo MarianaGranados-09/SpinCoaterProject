@@ -17,7 +17,7 @@ char crpm = ' ';
 char drpm = ' ';
 char urpm = ' ';
 
-int seg = 0;
+int16 seg = 0;
 char timeO[3];
 int8 flagmotor = 0;
 
@@ -65,7 +65,7 @@ void main(void)
    while(true)
    {
       temps();
-      fprintf(TTL, "%d\n", seg/2);
+      fprintf(TTL, "%ld\n", seg/2);
       minCalc();
       rpm_and_time_display();
       delay_ms(10);
@@ -76,7 +76,7 @@ void main(void)
 }
 void minCalc(){
    
-   if(seg/2 < 59)
+      if(seg/2 < 59)
       {
          timeO[0] = '0';
          timeO[1] = '0';
@@ -86,11 +86,64 @@ void minCalc(){
          timeO[0] = '1';
          timeO[1] = '0';
       }
-      if(seg/2 >119 && seg/2 <=179)
+      if(seg/2 >119 && seg/2 <=179) //2 min
       {
          timeO[0] = '2';
          timeO[1] = '0';
       }
+      if(seg/2 >179 && seg/2 <=239) //3 min
+      {
+         timeO[0] = '3';
+         timeO[1] = '0';
+      }
+      if(seg/2 >239 && seg/2 <= 299) //4 min
+      {
+         timeO[0] = '4';
+         timeO[1] = '0';
+      }
+      if(seg/2 >299 && seg/2 <=359) //5 min
+      {
+         timeO[0] = '5';
+         timeO[1] = '0';
+      }
+      if(seg/2 >359 && seg/2 <=419) //6 min
+      {
+         timeO[0] = '6';
+         timeO[1] = '0';
+      }
+      if(seg/2 >419 && seg/2 <=479) //7 min
+      {
+         timeO[0] = '7';
+         timeO[1] = '0';
+      }
+      if(seg/2 >479 && seg/2 <=539) //8 min
+      {
+         timeO[0] = '8';
+         timeO[1] = '0';
+      }
+      if(seg/2 >539 && seg/2 <=599) //9 min
+      {
+         timeO[0] = '9';
+         timeO[1] = '0';
+      }
+      if(seg/2 >599 && seg/2 <=659) //10 min
+      {
+         timeO[0] = '0';
+         timeO[1] = '1';
+      }
+      if(seg/2 >659 && seg/2 <=719) //10 min
+      {
+         timeO[0] = '1';
+         timeO[1] = '1';
+      }
+      if(seg/2 >719 && seg/2 <=779) //10 min
+      {
+         timeO[0] = '2';
+         timeO[1] = '1';
+      }
+      
+      
+      
       fprintf(TTL, "%c", timeO[1]);
       fprintf(TTL, "%c min\r\n", timeO[0]);
    }

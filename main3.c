@@ -134,6 +134,12 @@ void rpm_and_time_display()
    SSD1306_DrawChar(45,1, crpm ,1);
    SSD1306_DrawChar(50,1, drpm ,1);
    SSD1306_DrawChar(55,1, urpm ,1);
+   
+   SSD1306_DrawText(10,20,"TIME: ", 1);
+   SSD1306_DrawChar(45,20, timeO[1] ,1);
+   SSD1306_DrawChar(55,20, timeO[0] ,1);
+   SSD1306_DrawText(65,20,"min", 1);
+   
 
    SSD1306_Display();
    

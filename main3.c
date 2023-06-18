@@ -66,7 +66,7 @@ void main(void)
    {
       temps();
       fprintf(TTL, "%d\n", seg/2);
-      //minCalc();
+      minCalc();
       rpm_and_time_display();
       delay_ms(10);
       limpiar_palabra();

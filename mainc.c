@@ -18,15 +18,16 @@
 int8 i=0, j=0, k=0;
 char number;
 char rpm[8];
-char mrpm = ' ';
-char crpm = ' ';
-char drpm = ' ';
-char urpm = ' ';
+char mrpm;
+char crpm;
+char drpm;
+char urpm;
 
 void initialMessage();
 void rpm_and_time_display();
 
 void limpiar_palabra();
+void imp();
 
 
 Void Main()
@@ -47,43 +48,14 @@ Void Main()
          delay_us(10);
          output_high(pin_a1);
          if(number == '.')
-            goto Imprimir;
+            break;
          rpm[i] = number;
       
       }
       
-      Imprimir:
-      if(i == 4)
-      {
-         mrpm = rpm[0];
-         crpm = rpm[1];
-         drpm = rpm[2];
-         urpm = rpm[3]; 
-      }
-      else if(i == 3)
-      {
-         crpm = rpm[0];
-         drpm = rpm[1];
-         urpm = rpm[2];
-      }
-      else if(i == 2)
-      {
-         drpm = rpm[0];
-         urpm = rpm[1];
-      }
-      else
-      {
-         urpm = rpm[0];
-      }
-      
-      delay_us(10);
-      fprintf(TTL,"Los digitos del rpm son: ");
-      fprintf(TTL,"%c", mrpm);
-      fprintf(TTL,"%c", crpm);
-      fprintf(TTL,"%c", drpm);
-      fprintf(TTL,"%c", urpm);
+      imp();
       rpm_and_time_display(); //display of rpm speed and time
-      delay_ms(1500);
+      delay_ms(15);
       limpiar_palabra();
       output_low(pin_a1);
    
@@ -96,7 +68,7 @@ void initialMessage()
    SSD1306_DrawText(35,22,"MATERIALS", 1);
    SSD1306_DrawText(0,50,"BY: MM", 1);
    SSD1306_Display();
-   Delay_ms(5000);
+   Delay_ms(2000);
    SSD1306_ClearDisplay();
    SSD1306_Display();
 }
@@ -123,4 +95,23 @@ void limpiar_palabra()
       crpm = ' ';
       drpm = ' ';
       urpm = ' ';
+}
+
+void imp()
+{
+      if(i == 4)
+      {
+         mrpm = rpm[0];
+         crpm = rpm[1];
+         drpm = rpm[2];
+         urpm = rpm[3]; 
+      }
+      else
+      {
+         mrpm = ' ';
+         crpm = rpm[0];
+         drpm = rpm[1];
+         urpm = rpm[2];
+      }
+      
 }

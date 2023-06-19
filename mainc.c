@@ -18,10 +18,10 @@
 int8 i=0, j=0, k=0;
 char number;
 char rpm[8];
-char mrpm;
-char crpm;
-char drpm;
-char urpm;
+char mrpm = '0';
+char crpm = '0';
+char drpm = '0';
+char urpm = '0';
 
 void initialMessage();
 void rpm_and_time_display();
@@ -52,10 +52,9 @@ Void Main()
          rpm[i] = number;
       
       }
-      
       imp();
       rpm_and_time_display(); //display of rpm speed and time
-      delay_ms(15);
+      delay_ms(150);
       limpiar_palabra();
       output_low(pin_a1);
    
@@ -68,7 +67,7 @@ void initialMessage()
    SSD1306_DrawText(35,22,"MATERIALS", 1);
    SSD1306_DrawText(0,50,"BY: MM", 1);
    SSD1306_Display();
-   Delay_ms(2000);
+   Delay_ms(5000);
    SSD1306_ClearDisplay();
    SSD1306_Display();
 }
@@ -99,6 +98,7 @@ void limpiar_palabra()
 
 void imp()
 {
+   Imprimir:
       if(i == 4)
       {
          mrpm = rpm[0];
@@ -106,12 +106,19 @@ void imp()
          drpm = rpm[2];
          urpm = rpm[3]; 
       }
-      else
+      else if(i == 3)
       {
-         mrpm = ' ';
          crpm = rpm[0];
          drpm = rpm[1];
          urpm = rpm[2];
       }
-      
+      else if(i == 2)
+      {
+         drpm = rpm[0];
+         urpm = rpm[1];
+      }
+      else
+      {
+         urpm = rpm[0];
+      }
 }
